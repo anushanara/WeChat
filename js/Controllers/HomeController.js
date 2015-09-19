@@ -1,4 +1,4 @@
-app.controller('googlemapoutput', function ($scope) {
+app.controller('googlemapoutput', function ($scope, $http, $http) {
     var map, mapOptions, directionsDisplay = new google.maps.DirectionsRenderer({
         draggable: true
     });
@@ -13,6 +13,7 @@ app.controller('googlemapoutput', function ($scope) {
             mapOptions);
     };
     $scope.calcRoute = function () {
+        prompt("ur in calcRoute");
         var end = document.getElementById('endlocation').value;
         var start = document.getElementById('startlocation').value;
         var request = {
@@ -28,5 +29,51 @@ app.controller('googlemapoutput', function ($scope) {
                 }     
         });
     };
+    
+  
+    
+    $scope.getWeather = function () {
+    
+        prompt($scope.startlocation); //gets the value of startlocation in tml
+        prompt($scope.endlocation);
+        var myUrl = "http://api.wunderground.com/api/36b799dc821d5836/conditions/q/MO/" +  encodeURIComponent($scope.startlocation)+".json";
+        var myUrl_des = "http://api.wunderground.com/api/36b799dc821d5836/conditions/q/MO/" +  encodeURIComponent($scope.endlocation)+".json";
+        prompt(myUrl);
+        prompt(myUrl_des)//http://api.wunderground.com/api/36b799dc821d5836/conditions/q/MO/kansas%20city.json
+        $http.get(myUrl).success(function (data) {
+        //prompt(data);
+            prompt("ur here");
+            temp = data.current_observation.temp_f;
+            icon = data.current_observation.icon_url;
+            weather = data.current_observation.weather;
+            console.log(temp);
+            console.log(icon);
+            console.log(weather);
+            prompt(temp);
+            prompt(icon);
+            prompt(weather);
+            $scope.currenttemp = temp;
+            $scope.currenticon = icon;
+            $scope.currentweather = weather;
+        })
+         $http.get(myUrl_des).success(function (data) {
+        //prompt(data);
+            prompt("ur in des");
+            temp = data.current_observation.temp_f;
+            icon = data.current_observation.icon_url;
+            weather = data.current_observation.weather;
+            console.log(temp);
+            console.log(icon);
+            console.log(weather);
+            prompt(temp);
+            prompt(icon);
+            prompt(weather);
+            $scope.currenttemp_Des = temp;
+            $scope.currenticon_Des = icon;
+            $scope.currentweather_Des = weather;
+        })
+    };
+    
     google.maps.event.addDomListener(window, 'load', $scope.initialize);
+    
 });
