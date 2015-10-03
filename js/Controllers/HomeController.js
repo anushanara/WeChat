@@ -33,9 +33,9 @@ app.controller('googlemapoutput', function ($scope, $http, $http) {
   
     
     $scope.getWeather = function () {
-    
-        //prompt($scope.startlocation); //gets the value of startlocation in tml
-        //prompt($scope.endlocation);
+        
+        prompt($scope.startlocation); //gets the value of startlocation in tml
+        prompt($scope.endlocation);
         var myUrl = "http://api.wunderground.com/api/36b799dc821d5836/conditions/q/MO/" +  encodeURIComponent($scope.startlocation)+".json";
         var myUrl_des = "http://api.wunderground.com/api/36b799dc821d5836/conditions/q/MO/" +  encodeURIComponent($scope.endlocation)+".json";
         prompt(myUrl);
@@ -48,9 +48,9 @@ app.controller('googlemapoutput', function ($scope, $http, $http) {
             console.log(temp);
             console.log(icon);
             console.log(weather);
-            //prompt(temp);
-            //prompt(icon);
-            //prompt(weather);
+            prompt(temp);
+            prompt(icon);
+            prompt(weather);
             $scope.currenttemp = temp;
             $scope.currenticon = icon;
             $scope.currentweather = weather;
